@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+{% block title %}{{ blog.title }}{% endblock %}
+
+{% block extra_css %}
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lora:wght@400;500;600&family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #FFF8E7;
+    --warm-brown: #8B4513;
+    --dark-brown: #3E2723;
+    --text-dark: #2C1810;
+    --text-medium: #5D4E37;
+    --accent-gold: #D4AF37;
+  }
+
+  body {
+    background: linear-gradient(135deg, var(--cream) 0%, #FFF5E1 100%);
+    min-height: 100vh;
+  }
+
+  .blog-detail-container {
+    max-width: 850px;
+    margin: 80px auto 60px;
+    padding: 60px 50px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 60px rgba(62, 39, 35, 0.1);
+  }
+
+  /* Back Button */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    background: transparent;
+    color: var(--warm-brown);
+    text-decoration: none;
+    border: 2px solid var(--warm-brown);
+    border-radius: 25px;
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .back-link:hover {
+    background: var(--warm-brown);
+    color: white;
+    transform: translateX(-5px);
+  }
+
+  /* Article Header */
+  .blog-header {
+    border-bottom: 3px solid var(--accent-gold);
+    padding-bottom: 30px;
+    margin-bottom: 40px;
+  }
+
+  .blog-category-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: linear-gradient(135deg, var(--warm-brown), #A0522D);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+
+  .blog-detail-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--dark-brown);
+    line-height: 1.2;
+    margin-bottom: 15px;
+    font-weight: 700;
+    letter-spacing: -1px;
+  }
+
+  .blog-detail-subtitle {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    color: var(--text-medium);
+    line-height: 1.6;
+    font-style: italic;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+
+  .blog-meta {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    font-family: 'Merriweather', serif;
+    font-size: 14px;
+    color: var(--text-medium);
+  }
+
+  .blog-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Article Body */
+  .blog-detail-content {
+    font-family: 'Merriweather', serif;
+    font-size: 18px;
+    line-height: 2;
+    color: var(--text-dark);
+    text-align: justify;
+  }
+
+  .blog-detail-content p {
+    margin-bottom: 25px;
+  }
+
+  .blog-detail-content p:first-of-type::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5rem;
+    float: left;
+    line-height: 0.85;
+    margin: 10px 15px 0 0;
+    color: var(--warm-brown);
+    font-weight: 700;
+  }
+
+  .blog-detail-content h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: var(--dark-brown);
+    margin: 50px 0 20px;
+    font-weight: 600;
+    border-left: 5px solid var(--accent-gold);
+    padding-left: 20px;
+  }
+
+  .blog-detail-content h3 {
+    font-family: 'Lora', serif;
+    font-size: 1.5rem;
+    color: var(--warm-brown);
+    margin: 40px 0 15px;
+    font-weight: 600;
+  }
+
+  .blog-detail-content ul,
+  .blog-detail-content ol {
+    margin: 25px 0;
+    padding-left: 30px;
+  }
+
+  .blog-detail-content li {
+    margin-bottom: 12px;
+    line-height: 1.9;
+  }
+
+  .blog-detail-content blockquote {
+    margin: 40px 0;
+    padding: 30px 40px;
+    background: linear-gradient(135deg, #FFF8E7 0%, #FFEFD5 100%);
+    border-left: 6px solid var(--accent-gold);
+    font-style: italic;
+    font-size: 1.1em;
+    color: var(--text-medium);
+    border-radius: 10px;
+  }
+
+  .blog-detail-content strong {
+    color: var(--dark-brown);
+    font-weight: 600;
+  }
+
+  .blog-detail-content em {
+    color: var(--warm-brown);
+  }
+
+  /* Divider */
+  .content-divider {
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-gold), var(--warm-brown));
+    margin: 50px auto;
+    border-radius: 2px;
+  }
+
+  /* Footer CTA */
+  .blog-footer-cta {
+    margin-top: 60px;
+    padding: 40px;
+    background: linear-gradient(135deg, var(--warm-brown), #A0522D);
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+  }
+
+  .blog-footer-cta h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+
+  .blog-footer-cta p {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    opacity: 0.95;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 15px 40px;
+    background: white;
+    color: var(--warm-brown);
+    text-decoration: none;
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  }
+
+  .cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .blog-detail-container {
+      margin: 40px 20px;
+      padding: 40px 30px;
+    }
+
+    .blog-detail-title {
+      font-size: 2rem;
+    }
+
+    .blog-detail-content {
+      font-size: 16px;
+      line-height: 1.9;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="blog-detail-container">
+  <!-- Back Button -->
+  <a href="{% url 'about' %}" class="back-link">
+    ← Back to About
+  </a>
+
+  <!-- Article Header -->
+  <header class="blog-header">
+    <span class="blog-category-badge">{{ blog.category|default:"Chai Culture" }}</span>
+    
+    <h1 class="blog-detail-title">{{ blog.title }}</h1>
+    
+    {% if blog.subtitle %}
+    <h2 class="blog-detail-subtitle">{{ blog.subtitle }}</h2>
+    {% endif %}
+    
+    <div class="blog-meta">
+      <span>🗓️ {{ blog.created_at|date:"F d, Y" }}</span>
+      <span>☕ 5 min read</span>
+    </div>
+  </header>
+
+  <!-- Article Body -->
+  <article class="blog-detail-content">
+    {{ blog.content|linebreaks }}
+  </article>
+
+  <!-- Decorative Divider -->
+  <div class="content-divider"></div>
+
+  <!-- Footer CTA -->
+  <div class="blog-footer-cta">
+    <h3>Discover More Chai Stories</h3>
+    <p>Explore our collection of handcrafted chai blends</p>
+    <a href="{% url 'all_chai' %}" class="cta-button">Browse Our Collection</a>
+  </div>
+</div>
+{% endblock %}

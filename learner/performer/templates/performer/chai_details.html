@@ -1,0 +1,340 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}{{ chai.name }} - Details{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* Existing styles... */
+  
+  /* Reviews Section */
+  .reviews-section {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 40px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  }
+
+  .reviews-header {
+    border-bottom: 3px solid #D4AF37;
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+  }
+
+  .reviews-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    color: #3E2723;
+    margin-bottom: 10px;
+  }
+
+  .reviews-stats {
+    display: flex;
+    gap: 30px;
+    font-family: 'Lora', serif;
+    color: #5D4E37;
+  }
+
+  /* Review Form */
+  .review-form {
+    background: linear-gradient(135deg, #FFF8E7, #FFEFD5);
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    border: 2px solid #D4AF37;
+  }
+
+  .review-form h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    color: #3E2723;
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    color: #3E2723;
+    margin-bottom: 8px;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #D4AF37;
+    border-radius: 10px;
+    font-family: 'Merriweather', serif;
+    font-size: 16px;
+    color: #2C1810; /* Added: black text color */
+    background: white; /* Added: white background */
+    transition: all 0.3s ease;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: #8B4513;
+    box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+    color: #2C1810; /* Added: ensure text stays black on focus */
+  }
+
+  /* Also add placeholder color */
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: #999;
+    opacity: 1;
+  }
+
+  .submit-review-btn {
+    padding: 12px 40px;
+    background: linear-gradient(135deg, #8B4513, #A0522D);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .submit-review-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(139, 69, 19, 0.3);
+  }
+
+  /* Review Card */
+  .review-card {
+    padding: 25px;
+    border: 2px solid #FFF8E7;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+  }
+
+  .review-card:hover {
+    border-color: #D4AF37;
+    box-shadow: 0 5px 20px rgba(212, 175, 55, 0.2);
+  }
+
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .reviewer-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .reviewer-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8B4513, #D4AF37);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Lora', serif;
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .reviewer-name {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #3E2723;
+  }
+
+  .review-date {
+    font-family: 'Merriweather', serif;
+    font-size: 13px;
+    color: #5D4E37;
+  }
+
+  .review-rating {
+    display: flex;
+    gap: 3px;
+    font-size: 18px;
+  }
+
+  .star {
+    color: #D4AF37;
+  }
+
+  .star.empty {
+    color: #DDD;
+  }
+
+  .review-comment {
+    font-family: 'Merriweather', serif;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #2C1810;
+  }
+
+  .no-reviews {
+    text-align: center;
+    padding: 40px;
+    color: #5D4E37;
+    font-family: 'Lora', serif;
+    font-style: italic;
+  }
+
+  .login-prompt {
+    text-align: center;
+    padding: 30px;
+    background: #FFF8E7;
+    border-radius: 15px;
+    margin-bottom: 40px;
+  }
+
+  .login-prompt a {
+    color: #8B4513;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="w-full bg-gray-800 text-white py-12 px-6">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold">{{ chai.name }}</h1>
+    <p class="mt-4 text-lg">{{ chai.description }}</p>
+    <div class="mt-6">
+      <img src="{{ chai.image.url }}" alt ="{{ chai.name }}" class="w-full h-auto rounded-lg">
+    </div>
+    <p class="mt-4 text-lg font-semibold">Type: {{ chai.type }}</p>
+    <p class="mt-2 text-lg font-semibold">Price: ${{ chai.prices }}</p>
+  </div>
+  
+  <!-- Reviews Section -->
+  <section class="reviews-section">
+    <div class="reviews-header">
+      <h2>☕ Customer Reviews</h2>
+      <div class="reviews-stats">
+        <span>⭐ {{ reviews.count }} Review{{ reviews.count|pluralize }}</span>
+      </div>
+    </div>
+
+    <!-- Success/Error Messages -->
+    {% if messages %}
+  {% for message in messages %}
+    <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-error{% endif %}">
+        {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+<style>
+  .alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    border: 2px solid #c3e6cb;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 2px solid #f5c6cb;
+}
+
+</style>
+
+
+    <!-- Review Form (only for logged-in users) -->
+    {% if user.is_authenticated %}
+    <div class="review-form">
+      <h3>{% if user_review %}Update Your Review{% else %}Share Your Experience{% endif %}</h3>
+      <form method="post">
+        {% csrf_token %}
+        
+        {% if form.errors %}
+          <div class="alert alert-error" style="padding: 15px; margin-bottom: 20px; border-radius: 10px; background: #f8d7da; color: #721c24; border: 2px solid #f5c6cb;">
+            Please correct the errors below.
+          </div>
+        {% endif %}
+
+        <div class="form-group">
+          <label for="id_rating">{{ form.rating.label }}</label>
+          {{ form.rating }}
+          {% if form.rating.errors %}
+            <span style="color: red; font-size: 14px;">{{ form.rating.errors }}</span>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          <label for="id_comment">{{ form.comment.label }}</label>
+          {{ form.comment }}
+          {% if form.comment.errors %}
+            <span style="color: red; font-size: 14px;">{{ form.comment.errors }}</span>
+          {% endif %}
+        </div>
+
+        <button type="submit" class="submit-review-btn">
+          {% if user_review %}Update Review{% else %}Submit Review{% endif %}
+        </button>
+      </form>
+    </div>
+    {% else %}
+    <div class="login-prompt">
+      <p>Please <a href="{% url 'login' %}?next={{ request.path }}">log in</a> to leave a review.</p>
+    </div>
+    {% endif %}
+
+    <!-- Reviews List -->
+    {% if reviews %}
+      {% for review in reviews %}
+      <div class="review-card">
+        <div class="review-header">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar">
+              {{ review.user.username|first|upper }}
+            </div>
+            <div>
+              <div class="reviewer-name">{{ review.user.username }}</div>
+              <div class="review-date">{{ review.date|date:"F d, Y" }}</div>
+            </div>
+          </div>
+          <div class="review-rating">
+            {% for i in "12345" %}
+              {% if forloop.counter <= review.rating %}
+                <span class="star">★</span>
+              {% else %}
+                <span class="star empty">★</span>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        <p class="review-comment">{{ review.comment }}</p>
+      </div>
+      {% endfor %}
+    {% else %}
+      <div class="no-reviews">
+        <p>No reviews yet. Be the first to share your thoughts!</p>
+      </div>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

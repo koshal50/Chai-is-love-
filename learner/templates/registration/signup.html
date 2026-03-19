@@ -1,0 +1,89 @@
+{% load static widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="{% static 'registration/style.css' %}">
+
+  <!-- FIX: prevent icons from blocking input clicks -->
+  <style>
+    box-icon {
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="curved-shape2"></div>
+
+    <!-- Register Form -->
+    <div class="form-box Register">
+      <h2>Register</h2>
+
+      <form action="{% url 'signup' %}" method="post">
+        {% csrf_token %}
+
+        <!-- Non-field Errors -->
+        {% if form.non_field_errors %}
+          <div class="error-box">
+            {{ form.non_field_errors }}
+          </div>
+        {% endif %}
+
+        <!-- Username -->
+        <div class="input-box">
+          {% render_field form.username class="input" placeholder=" " %}
+          <label>Username</label>
+          <box-icon type="solid" name="user" color="gray"></box-icon>
+        </div>
+
+        <!-- Email (FIXED & CLICKABLE) -->
+        <div class="input-box">
+          {% render_field form.email type="email" class="input" placeholder=" " %}
+          <label>Email</label>
+          <box-icon type="solid" name="envelope" color="gray"></box-icon>
+        </div>
+
+        <!-- Password -->
+        <div class="input-box">
+          {% render_field form.password1 class="input" placeholder=" " %}
+          <label>Password</label>
+          <box-icon type="solid" name="lock-alt" color="gray"></box-icon>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="input-box">
+          {% render_field form.password2 class="input" placeholder=" " %}
+          <label>Confirm Password</label>
+          <box-icon type="solid" name="lock-alt" color="gray"></box-icon>
+        </div>
+
+        <!-- Submit -->
+        <button class="btn" type="submit">Register</button>
+
+        <!-- Login Link -->
+        <div class="regi-link">
+          <p>
+            Already have an account?
+            <a href="{% url 'login' %}">Sign in</a>
+          </p>
+        </div>
+      </form>
+    </div>
+
+    <!-- Info Panel -->
+    <div class="info-content Register">
+      <h2>WELCOME!</h2>
+      <p>Create your account to get started.</p>
+    </div>
+  </div>
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+</body>
+</html>

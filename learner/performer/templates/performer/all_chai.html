@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}All Chai{% endblock %}
+
+{% block content %}
+<div class="w-full bg-gray-800 text-white py-12 px-6">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold">All Types of Chai Available</h1>
+    <p class="mt-4 text-lg">From masala chai to green tea, explore our collection of flavors.</p>
+    <ul class="mt-6 space-y-2">
+      <li class="bg-red-600 p-2 rounded hover:bg-orange-400">Masala Chai</li>
+      <li class="bg-red-600 p-2 rounded hover:bg-orange-400">Green Tea</li>
+      <li class="bg-red-600 p-2 rounded hover:bg-orange-400">Black Tea</li>
+      <li class="bg-red-600 p-2 rounded hover:bg-orange-400">Herbal Infusions</li>
+    </ul>
+  </div>
+</div>
+<div class="chai-list grid grid-cols-1 md:grid-cols-3 gap-4 p-6 bg-gray-100">
+{% for chai in chais %}
+  <div class= "chai-item p-4 m-4 border border-gray-700 rounded-lg bg-gray-900 text-white">
+    <img src="{{ chai.image.url }}" alt ="">
+    <h2 class="text-xl font-semibold">{{ chai.name }}</h2>
+    <p class="text-gray-300">{{ chai.type }}</p>
+    <p class ="text-gray-300">${{ chai.prices }}</p>
+    <a href="{% url 'chai_details' chai.id %}"> 
+      <button class="mt-2 bg-orange-500 hover:bg-orange-600 text-white py-1 px-4 rounded">
+        {{chai.type}}-{{chai.id}}
+      </button>
+
+    </a>
+  </div>
+{% endfor %}
+</div>  
+
+{% endblock %}  

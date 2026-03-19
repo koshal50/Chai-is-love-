@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login & Signup Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'registration/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="curved-shape"></div>
+        <div class="curved-shape2"></div>
+
+        <div class="form-box Login">
+            <h2 class="animation" style="--D:0; --S:21">Login</h2>
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <div class="input-box animation" style="--D:1; --S:22">
+                    <input name="username" type="text" required>
+                    <label>Username</label>
+                    <box-icon type='solid' name='user' color="gray"></box-icon>
+                </div>
+
+                <div class="input-box animation" style="--D:2; --S:23">
+                    <input name="password" type="password" required>
+                    <label>Password</label>
+                    <box-icon name='lock-alt' type='solid' color="gray"></box-icon>
+                </div>
+
+                <div class="input-box animation" style="--D:3; --S:24">
+                    <button class="btn" type="submit">Login</button>
+                </div>
+
+                <div class="regi-link animation" style="--D:4; --S:25">
+                    <p>Don't have an account? <br> <a href="{% url 'signup' %}" class="SignUpLink">Sign Up</a></p>
+                </div>
+            </form>
+        </div>
+
+        <div class="info-content Login">
+            <h2 class="animation" style="--D:0; --S:20">WELCOME BACK!</h2>
+            <p class="animation" style="--D:1; --S:21">We are happy to have you with us again.</p>
+        </div>
+
+        <!-- register block (optional) -->
+        <!-- ...keep only if you need inline register form... -->
+
+    </div>
+
+    <script src="{% static 'registration/index.js' %}"></script>
+    <script src="{% static 'registration/script.js' %}"></script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+</body>
+</html>

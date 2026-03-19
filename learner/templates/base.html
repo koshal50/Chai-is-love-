@@ -1,0 +1,90 @@
+{% load static %}
+{% load tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>{% block title %}My Site{% endblock %}</title>
+      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+      <link rel="icon" type="image/png" href="{% static 'images/favicon.ico' %}">
+
+  {% tailwind_css %}
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'home.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+
+<body class="bg-[#333] text-gray-100 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav class="bg-red-600 text-white shadow-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+      <!-- Brand -->
+      <a href="{% url 'home' %}" target="_blank" class="text-xl font-bold tracking-wide hover:text-orange-300">
+        <img src="{% static 'images/favicon.ico' %}" alt="ChaiCraft Logo" class="inline-block h-8 w-8 mr-2 align-middle" />
+         ChaiCraft
+      </a>
+
+      <!-- Navigation Links -->
+      <ul class="hidden md:flex space-x-6 font-medium">
+        <li><a href="{% url 'home' %}" target="_blank" class="hover:text-orange-300">Home</a></li>
+        <li><a href="{% url 'about' %}" target="_blank" class="hover:text-orange-300">About</a></li>
+        <li><a href="{% url 'all_chai' %}" target="_blank"class="hover:text-orange-300">All Chai</a></li>
+        <li><a href="{% url 'chai_store' %}"target="_blank" class="hover:text-orange-300">Chai Store</a></li>
+        <li><a href="{% url 'contact' %}"target="_blank" class="hover:text-orange-300">Contact</a></li>
+      </ul>
+
+      <!-- Auth Section -->
+      <div class="flex items-center space-x-4">
+        {% if user.is_authenticated %}
+          <span class="hidden sm:block text-sm text-gray-100">
+            Hi, {{ user.username }}
+          </span>
+
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button
+              type="submit"
+              class="bg-gray-900 hover:bg-gray-800 px-4 py-2 rounded-lg transition"
+            >
+              Logout
+            </button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}" class="hover:text-orange-300 font-medium">
+            Login
+          </a>
+
+          <a
+            href="{% url 'signup' %}"
+            class="bg-gray-900 hover:bg-gray-800 px-4 py-2 rounded-lg transition"
+          >
+            Sign Up
+          </a>
+        {% endif %}
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-grow w-full px-4 md:px-8 py-8">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-300 text-center py-4">
+    <p>© 2025 ChaiCraft – Discover the Art of Chai | All Rights Reserved</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="{% static 'js/script.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+
+</body>
+</html>

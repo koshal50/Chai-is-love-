@@ -1,0 +1,815 @@
+{% extends "base.html" %}
+{% block title %}About Chai - Our Story{% endblock %}
+
+{% block extra_css %}
+<link
+  href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap"
+  rel="stylesheet">
+
+<style>
+  : root {
+    /* Earthy Color Palette */
+    --chai-brown: #6B4423;
+    --dark-brown: #3E2723;
+    --cream: #FFF8E7;
+    --warm-cream: #FAF3E0;
+    --saffron: #D4A574;
+    --soft-green: #8B9A7E;
+    --sage-green: #A8B89F;
+    --terracotta: #C87E5C;
+    --text-dark: #2C1810;
+    --text-medium: #5D4E37;
+    --text-light: #8B7355;
+    --white: #FFFFFF;
+    --shadow-light: rgba(107, 68, 35, 0.1);
+    --shadow-medium: rgba(107, 68, 35, 0.15);
+    --shadow-heavy: rgba(107, 68, 35, 0.25);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-dark);
+    background: var(--warm-cream);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ==================== HERO SECTION ==================== */
+  .hero {
+    position: relative;
+    height: 70vh;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--chai-brown) 0%, var(--dark-brown) 100%);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+      url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><pattern id="tea" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1. 5" fill="rgba(255,255,255,0.15)"/></pattern></defs><rect fill="url(%23tea)" width="1200" height="800"/></svg>');
+    opacity: 0.3;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      radial-gradient(circle at 20% 50%, rgba(212, 165, 116, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(139, 154, 126, 0.2) 0%, transparent 50%),
+      linear-gradient(180deg, transparent 0%, rgba(44, 24, 16, 0.4) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: var(--white);
+    padding: 0 20px;
+    max-width: 900px;
+    animation: fadeInUp 1s ease-out;
+  }
+
+  .hero-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 20px;
+    font-weight: 500;
+    opacity: 0;
+    animation: fadeIn 1s ease-out 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2. 5rem, 6vw, 5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 25px;
+    text-shadow: 2px 4px 20px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    animation: fadeIn 1s ease-out 0.5s forwards;
+  }
+
+  .hero-description {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    line-height: 1.8;
+    max-width: 700px;
+    margin: 0 auto;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeIn 1s ease-out 0.7s forwards;
+  }
+
+  .hero-decoration {
+    position: absolute;
+    font-size: 200px;
+    opacity: 0.05;
+    pointer-events: none;
+  }
+
+  .hero-decoration:nth-child(1) {
+    top: 10%;
+    left: 5%;
+    transform: rotate(-15deg);
+  }
+
+  . hero-decoration:nth-child(2) {
+    bottom: 10%;
+    right: 5%;
+    transform: rotate(15deg);
+  }
+
+  /* ==================== CONTAINER ==================== */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* ==================== STORY SECTION ==================== */
+  .story-section {
+    padding: 100px 0;
+    background: var(--cream);
+    position: relative;
+  }
+
+  .story-section:: before {
+    content: '☕';
+    position: absolute;
+    top: 50px;
+    right: 5%;
+    font-size: 150px;
+    opacity: 0.03;
+    transform: rotate(15deg);
+  }
+
+  .story-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .section-label {
+    font-size: 13px;
+    letter-spacing: 2. 5px;
+    text-transform: uppercase;
+    color: var(--saffron);
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(212, 165, 116, 0.1);
+    border-radius: 20px;
+  }
+
+  .story-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3. 5rem);
+    color: var(--dark-brown);
+    margin-bottom: 30px;
+    line-height: 1.3;
+  }
+
+  .story-text {
+    font-size: 18px;
+    line-height: 2;
+    color: var(--text-medium);
+    margin-bottom: 25px;
+    text-align: justify;
+  }
+
+  .story-text: first-of-type:: first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    line-height: 1;
+    float: left;
+    margin: 5px 10px 0 0;
+    color: var(--chai-brown);
+    font-weight: 700;
+  }
+
+  .mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 60px;
+  }
+
+  . mission-card {
+    background: var(--white);
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px var(--shadow-light);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
+  }
+
+  .mission-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px var(--shadow-medium);
+  }
+
+  .mission-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .mission-card h3 {
+    font-family: 'Merriweather', serif;
+    font-size: 20px;
+    color: var(--chai-brown);
+    margin-bottom: 12px;
+  }
+
+  .mission-card p {
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+
+  /* ==================== BLOGS SECTION ==================== */
+  . blogs-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--warm-cream) 0%, var(--cream) 100%);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--dark-brown);
+    margin-bottom: 15px;
+  }
+
+  .section-subtitle {
+    font-size: 16px;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Featured Blog */
+  .featured-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  color: var(--dark-brown);
+  margin-bottom: 20px;
+  line-height: 1.3;
+  font-weight: 700; /* Make title bolder */
+}
+
+/* Add this new style for subtitle */
+.blog-subtitle {
+  font-family: 'Merriweather', serif;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--text-medium);
+  margin-bottom: 20px;
+  line-height: 1.6;
+  font-weight: 400;
+  font-style: italic; /* Adds elegance */
+  letter-spacing: 0.3px;
+}
+
+.featured-excerpt {
+  font-size: 16px;
+  color: var(--text-medium);
+  line-height: 1.9;
+  margin-bottom: 30px;
+}
+
+/* ...existing code... */
+  .featured-blog {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px var(--shadow-medium);
+    margin-bottom: 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
+  }
+
+  . featured-blog:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 60px var(--shadow-heavy);
+  }
+
+  .featured-image {
+    position: relative;
+    background: linear-gradient(135deg, var(--chai-brown) 0%, var(--terracotta) 100%);
+    min-height: 400px;
+    overflow: hidden;
+  }
+
+  .featured-image::before {
+    content: '☕';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 180px;
+    opacity: 0.1;
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    background: var(--saffron);
+    color: var(--white);
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .featured-content {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .featured-category {
+    font-size: 13px;
+    color: var(--soft-green);
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
+
+  . featured-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    color: var(--dark-brown);
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  .featured-excerpt {
+    font-size: 16px;
+    color: var(--text-medium);
+    line-height: 1.9;
+    margin-bottom: 30px;
+  }
+
+  .featured-meta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 14px;
+    color: var(--text-light);
+    margin-bottom: 25px;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: var(--chai-brown);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+    box-shadow: 0 4px 15px rgba(107, 68, 35, 0.3);
+  }
+
+  .read-more:hover {
+    background: var(--dark-brown);
+    transform: translateX(5px);
+    box-shadow: 0 6px 25px rgba(107, 68, 35, 0.4);
+  }
+
+  . read-more:: after {
+    content: '→';
+    transition: transform 0.3s ease;
+  }
+
+  .read-more:hover::after {
+    transform: translateX(5px);
+  }
+
+  /* Blog Grid */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 35px;
+  }
+
+  .blog-card {
+    background: var(--white);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 5px 25px var(--shadow-light);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 45px var(--shadow-medium);
+  }
+
+  .blog-thumbnail {
+    position: relative;
+    height: 240px;
+    background: linear-gradient(135deg, var(--soft-green) 0%, var(--sage-green) 100%);
+    overflow: hidden;
+  }
+
+  .blog-thumbnail::before {
+    content: '🍃';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+    font-size: 120px;
+    opacity: 0.15;
+  }
+
+  .blog-card: nth-child(2) .blog-thumbnail {
+    background: linear-gradient(135deg, var(--saffron) 0%, var(--terracotta) 100%);
+  }
+
+  .blog-card:nth-child(2) .blog-thumbnail::before {
+    content: '☕';
+  }
+
+  .blog-card:nth-child(3) .blog-thumbnail {
+    background: linear-gradient(135deg, var(--terracotta) 0%, var(--chai-brown) 100%);
+  }
+
+  .blog-card:nth-child(3) .blog-thumbnail::before {
+    content: '🌿';
+  }
+
+  .blog-card: nth-child(4) .blog-thumbnail {
+    background: linear-gradient(135deg, var(--chai-brown) 0%, var(--dark-brown) 100%);
+  }
+
+  . blog-card:nth-child(4) .blog-thumbnail::before {
+    content: '🍂';
+  }
+
+  .blog-card:nth-child(5) .blog-thumbnail {
+    background: linear-gradient(135deg, var(--sage-green) 0%, var(--soft-green) 100%);
+  }
+
+  .blog-card:nth-child(5) .blog-thumbnail::before {
+    content: '🌱';
+  }
+
+  .blog-card:nth-child(6) .blog-thumbnail {
+    background: linear-gradient(135deg, var(--saffron) 0%, var(--chai-brown) 100%);
+  }
+
+  .blog-card:nth-child(6) .blog-thumbnail::before {
+    content: '✨';
+  }
+
+  . blog-body {
+    padding: 30px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blog-category {
+    font-size: 12px;
+    color: var(--soft-green);
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  . blog-title {
+    font-family: 'Merriweather', serif;
+    font-size: 20px;
+    color: var(--dark-brown);
+    margin-bottom: 15px;
+    line-height: 1.5;
+    font-weight: 700;
+  }
+
+  .blog-excerpt {
+    font-size: 14px;
+    color: var(--text-medium);
+    line-height: 1.8;
+    margin-bottom: 20px;
+    flex-grow: 1;
+  }
+
+  .blog-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(107, 68, 35, 0.1);
+  }
+
+  .blog-date {
+    font-size: 13px;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  . blog-link {
+    color: var(--chai-brown);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .blog-link:hover {
+    color: var(--terracotta);
+    transform: translateX(3px);
+  }
+
+  .blog-link::after {
+    content: '→';
+  }
+
+  /* ==================== ANIMATIONS ==================== */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ==================== RESPONSIVE DESIGN ==================== */
+  @media (max-width: 968px) {
+    .featured-blog {
+      grid-template-columns: 1fr;
+    }
+
+    .featured-image {
+      min-height: 300px;
+    }
+
+    .featured-content {
+      padding: 35px;
+    }
+
+    . blog-grid {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .story-section {
+      padding: 60px 0;
+    }
+
+    .blogs-section {
+      padding: 60px 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      height: 60vh;
+      min-height: 450px;
+    }
+
+    . mission-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .featured-content {
+      padding: 25px;
+    }
+
+    .story-text {
+      text-align: left;
+    }
+  }
+
+  /* ==================== PERFORMANCE OPTIMIZATIONS ==================== */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  img {
+    image-rendering: -webkit-optimize-contrast;
+  }
+
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<body>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <span class="hero-decoration">☕</span>
+    <span class="hero-decoration">☕</span>
+    <div class="hero-content">
+      <div class="hero-subtitle">Welcome to Our World</div>
+      <h1 class="hero-title">Our Story of Chai</h1>
+      <p class="hero-description">
+        A journey through tradition, flavor, and the timeless ritual that brings us together —
+        one cup at a time.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== STORY SECTION ==================== -->
+  <section class="story-section">
+    <div class="container">
+      <div class="story-content">
+        <span class="section-label">Our Heritage</span>
+        <h2 class="story-title">Brewing Traditions, One Cup at a Time</h2>
+
+        <p class="story-text">
+          Chai is more than just a beverage — it's a tradition passed down through generations,
+          a moment of pause in our busy lives, and a bridge that connects hearts across tables.
+          Our story began in the misty hills of Darjeeling, where our founders discovered not just
+          the perfect blend of tea leaves, but a philosophy of life itself.
+        </p>
+
+        <p class="story-text">
+          We believe that every cup tells a story. The warmth of the clay cup in your hands,
+          the aromatic steam rising like morning mist, the first sip that awakens your senses —
+          these are the moments we live for. Our mission is simple: to bring authentic chai
+          culture to every corner of the world, preserving heritage while embracing innovation.
+        </p>
+
+        <p class="story-text">
+          From selecting the finest tea leaves from organic plantations to perfecting the blend
+          of spices that dance on your palate, we honor the craft of chai-making with reverence
+          and passion. Each ingredient is carefully sourced, each blend thoughtfully created,
+          and each cup made with love.
+        </p>
+
+        <!-- Mission Cards -->
+        <div class="mission-grid">
+          <div class="mission-card">
+            <span class="mission-icon">🌱</span>
+            <h3>Sustainable Sourcing</h3>
+            <p>We partner with organic tea gardens that practice ethical farming and support local communities.</p>
+          </div>
+          <div class="mission-card">
+            <span class="mission-icon">🍃</span>
+            <h3>Authentic Flavors</h3>
+            <p>Traditional recipes meets premium ingredients to create chai that honors its roots.</p>
+          </div>
+          <div class="mission-card">
+            <span class="mission-icon">❤️</span>
+            <h3>Community First</h3>
+            <p>Building connections through shared stories, one cup of chai at a time.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== BLOGS & ARTICLES SECTION ==================== -->
+  <section class="blogs-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Explore & Learn</span>
+        <h2 class="section-title">Chai Chronicles</h2>
+        <p class="section-subtitle">
+          Dive into the rich world of chai culture, brewing techniques, health benefits, and seasonal blends.
+        </p>
+      </div>
+
+      <!-- Featured Blog -->
+      {% if featured %}
+      <div class="featured-blog">
+        <div class="featured-image">
+          <span class="featured-badge">✨ Featured</span>
+        </div>
+        <div class="featured-content">
+          <div class="featured-category">Chai Culture</div>
+
+          <h2 class="blog-subtitle">{{ featured.subtitle}}</h2>
+
+          <p class="featured-excerpt">
+            {{ featured.content|truncatewords:50}}
+          </p>
+          <a href="{% url 'about_detail' featured.id %}" class="read-more">Read Full Story</a>
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Blog Grid -->
+      <div class="blog-grid">
+        {% for blog in blogs %}
+        <article class="blog-card">
+          <div class="blog-thumbnail"></div>
+          <div class="blog-body">
+            <div class="blog-category">Chai Culture</div>
+
+            <h3 class="blog-title">{{ blog.title }}</h3>
+
+            <p class="blog-excerpt">
+              {{ blog.content|truncatewords:20 }}
+            </p>
+            <div class="blog-footer">
+              <span class="blog-date">🗓️ Recently</span>
+              <a href="{% url 'about_detail' blog.id %}" class="blog-link">Read More</a>
+            </div>
+          </div>
+        </article>
+        {% empty %}
+        <p>No blog posts available yet.</p>
+        {% endfor %}
+      </div>
+
+    </div>
+  </section>
+
+</body>
+{% endblock %}

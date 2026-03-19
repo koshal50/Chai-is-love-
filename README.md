@@ -5,6 +5,7 @@ This project is developed using **Django (Python)** for the backend and **HTML/C
 
 ---
 
+<img width="1200" height="800" alt="image" src="https://github.com/user-attachments/assets/7d5cf933-17df-49ae-8ee2-e8f2dd5d74f8" />
 
 
 ## Table of Contents
